@@ -1,0 +1,37 @@
+{
+  "Version": 1,
+  "WorkspaceRootPath": "C:\\Users\\22403\\Desktop\\nginx\\nginx\u4EE3\u7801\u79FB\u690D\\",
+  "Documents": [
+    {
+      "AbsoluteMoniker": "D:0:0:{A008088C-73EB-4419-90CE-61B4B54DF515}|nginx\u4EE3\u7801\u79FB\u690D\\nginx\u4EE3\u7801\u79FB\u690D.vcxproj|C:\\Users\\22403\\Desktop\\nginx\\nginx\u4EE3\u7801\u79FB\u690D\\nginx\u4EE3\u7801\u79FB\u690D\\test_nginxpool.cpp||{D0E1A5C6-B359-4E41-9B60-3365922C2A22}",
+      "RelativeMoniker": "D:0:0:{A008088C-73EB-4419-90CE-61B4B54DF515}|nginx\u4EE3\u7801\u79FB\u690D\\nginx\u4EE3\u7801\u79FB\u690D.vcxproj|solutionrelative:nginx\u4EE3\u7801\u79FB\u690D\\test_nginxpool.cpp||{D0E1A5C6-B359-4E41-9B60-3365922C2A22}"
+    }
+  ],
+  "DocumentGroupContainers": [
+    {
+      "Orientation": 0,
+      "VerticalTabListWidth": 256,
+      "DocumentGroups": [
+        {
+          "DockedWidth": 200,
+          "SelectedChildIndex": 0,
+          "Children": [
+            {
+              "$type": "Document",
+              "DocumentIndex": 0,
+              "Title": "test_nginxpool.cpp",
+              "DocumentMoniker": "C:\\Users\\22403\\Desktop\\nginx\\nginx\u4EE3\u7801\u79FB\u690D\\nginx\u4EE3\u7801\u79FB\u690D\\test_nginxpool.cpp",
+              "RelativeDocumentMoniker": "nginx\u4EE3\u7801\u79FB\u690D\\test_nginxpool.cpp",
+              "ToolTip": "C:\\Users\\22403\\Desktop\\nginx\\nginx\u4EE3\u7801\u79FB\u690D\\nginx\u4EE3\u7801\u79FB\u690D\\test_nginxpool.cpp",
+              "RelativeToolTip": "nginx\u4EE3\u7801\u79FB\u690D\\test_nginxpool.cpp",
+              "ViewState": "AQIAAAAAAAAAAAAAAAAAADYAAAAaAAAA",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000677|",
+              "WhenOpened": "2025-02-27T10:39:19.019Z",
+              "EditorCaption": ""
+            }
+          ]
+        }
+      ]
+    }
+  ]
+}

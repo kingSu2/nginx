@@ -2,68 +2,68 @@
 #include <stdlib.h>
 #include <memory>
 #include <string.h>
-//ÀàÐÍÖØ¶¨Òå
+//ï¿½ï¿½ï¿½ï¿½ï¿½Ø¶ï¿½ï¿½ï¿½
 using u_char = unsigned char;
 using ngx_uint_t = unsigned int;
 
-struct ngx_pool_s;//Ç°ÖÃÀàÐÍÉùÃ÷
+struct ngx_pool_s;//Ç°ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
 
-//ÇåÀíº¯Êý»Øµ÷ÀàÐÍ
+//ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Øµï¿½ï¿½ï¿½ï¿½ï¿½
 typedef void (*ngx_pool_cleanup_pt)(void* data);
 struct ngx_pool_cleanup_s {
-    ngx_pool_cleanup_pt   handler; //¶¨ÒåÒ»¸öº¯ÊýÖ¸Õë£¬±£´æÇåÀí²Ù×÷µÄ»Øµ÷º¯Êý
-    void*   data;           //´«µÝ¸ø»Øµ÷º¯ÊýµÄ²ÎÊý
-    ngx_pool_cleanup_s* next;//ËùÓÐµÄcleanupÇåÀí²Ù×÷¶¼±»´®ÔÚÒ»ÌõÁ´±íÉÏ
+    ngx_pool_cleanup_pt   handler; //ï¿½ï¿½ï¿½ï¿½Ò»ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ö¸ï¿½ë£¬ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ä»Øµï¿½ï¿½ï¿½ï¿½ï¿½
+    void*   data;           //ï¿½ï¿½ï¿½Ý¸ï¿½ï¿½Øµï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ä²ï¿½ï¿½ï¿½
+    ngx_pool_cleanup_s* next;//ï¿½ï¿½ï¿½Ðµï¿½cleanupï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ò»ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
 };
 
 
 /*
-´ó¿éÄÚ´æµÄÍ·²¿ÐÅÏ¢
+ï¿½ï¿½ï¿½ï¿½Ú´ï¿½ï¿½Í·ï¿½ï¿½ï¿½ï¿½Ï¢
 */
 struct ngx_pool_large_s {
-    ngx_pool_large_s*   next;//ËùÓÐµÄ´ó¿éÄÚ´æ·ÖÅäÒ²ÊÇ±»´®ÔÚÒ»ÌõÁ´±íÉÏ
-    void*   alloc;          //±£Ö¤·ÖÅä³öÈ¥µÄ´ó¿éÄÚ´æµÄÆðÊ¼µØÖ·
+    ngx_pool_large_s*   next;//ï¿½ï¿½ï¿½ÐµÄ´ï¿½ï¿½ï¿½Ú´ï¿½ï¿½ï¿½ï¿½Ò²ï¿½Ç±ï¿½ï¿½ï¿½ï¿½ï¿½Ò»ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
+    void*   alloc;          //ï¿½ï¿½Ö¤ï¿½ï¿½ï¿½ï¿½ï¿½È¥ï¿½Ä´ï¿½ï¿½ï¿½Ú´ï¿½ï¿½ï¿½ï¿½Ê¼ï¿½ï¿½Ö·
 };
 
 /*
-·ÖÅäÐ¡¿éÄÚ´æµÄÄÚ´æ³ØµÄÍ·²¿Êý¾ÝÐÅÏ¢
+ï¿½ï¿½ï¿½ï¿½Ð¡ï¿½ï¿½ï¿½Ú´ï¿½ï¿½ï¿½Ú´ï¿½Øµï¿½Í·ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ï¢
 */
 typedef struct ngx_pool_data_t {
-    u_char* last;   //Ð¡¿éÄÚ´æ³Ø¿ÉÓÃÄÚ´æµÄÆðÊ¼µØÖ·
-    u_char* end;    //Ð¡¿éÄÚ´æ³Ø¿ÉÓÃÄÚ´æµÄÄ©Î²µØÖ·
-    ngx_pool_s* next;   //ËùÓÐÐ¡¿éÄÚ´æ³Ø¶¼±»´®ÔÚÒ»ÌõÁ´±íÉÏ
-    ngx_uint_t  failed; //¼ÇÂ¼ÁËµ±Ç°Ð¡¿éÄÚ´æ³ØµÄ·ÖÅäÄÚ´æÊ§°Ü´ÎÊý
+    u_char* last;   //Ð¡ï¿½ï¿½ï¿½Ú´ï¿½Ø¿ï¿½ï¿½ï¿½ï¿½Ú´ï¿½ï¿½ï¿½ï¿½Ê¼ï¿½ï¿½Ö·
+    u_char* end;    //Ð¡ï¿½ï¿½ï¿½Ú´ï¿½Ø¿ï¿½ï¿½ï¿½ï¿½Ú´ï¿½ï¿½Ä©Î²ï¿½ï¿½Ö·
+    ngx_pool_s* next;   //ï¿½ï¿½ï¿½ï¿½Ð¡ï¿½ï¿½ï¿½Ú´ï¿½Ø¶ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ò»ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
+    ngx_uint_t  failed; //ï¿½ï¿½Â¼ï¿½Ëµï¿½Ç°Ð¡ï¿½ï¿½ï¿½Ú´ï¿½ØµÄ·ï¿½ï¿½ï¿½ï¿½Ú´ï¿½Ê§ï¿½Ü´ï¿½ï¿½ï¿½
 };
 
 /*
-ngxÄÚ´æ³ØµÄÍ·²¿ÐÅÏ¢ºÍ¹ÜÀí³ÉÔ±ÐÅÏ¢
+ngxï¿½Ú´ï¿½Øµï¿½Í·ï¿½ï¿½ï¿½ï¿½Ï¢ï¿½Í¹ï¿½ï¿½ï¿½ï¿½Ô±ï¿½ï¿½Ï¢
 */
 struct ngx_pool_s {
-    ngx_pool_data_t       d;//´æ´¢µÄÊÇµ±Ç°Ð¡¿éÄÚ´æ³ØÊ¹ÓÃÇé¿ö
-    size_t                max;//Ð¡¿éÄÚ´æºÍ´ó¿éÄÚ´æµÄ·Ö½çÏß
-    ngx_pool_s* current;    //Ö¸ÏòµÚÒ»¸ö¿ÉÒÔÌá¹©Ð¡¿éÄÚ´æ·ÖÅäµÄÐ¡¿éÄÚ´æ³Ø
-    ngx_pool_large_s* large;    //Ö¸Ïò´ó¿éÄÚ´æµÄÈë¿ÚµØÖ·£¨Á´±í£©
-    ngx_pool_cleanup_s * cleanup;    //Ö¸ÏòËùÓÐÔ¤ÖÃÇåÀí²Ù×÷»Øµ÷º¯Êý
+    ngx_pool_data_t       d;//ï¿½æ´¢ï¿½ï¿½ï¿½Çµï¿½Ç°Ð¡ï¿½ï¿½ï¿½Ú´ï¿½ï¿½Ê¹ï¿½ï¿½ï¿½ï¿½ï¿½
+    size_t                max;//Ð¡ï¿½ï¿½ï¿½Ú´ï¿½Í´ï¿½ï¿½ï¿½Ú´ï¿½Ä·Ö½ï¿½ï¿½ï¿½
+    ngx_pool_s* current;    //Ö¸ï¿½ï¿½ï¿½Ò»ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½á¹©Ð¡ï¿½ï¿½ï¿½Ú´ï¿½ï¿½ï¿½ï¿½ï¿½Ð¡ï¿½ï¿½ï¿½Ú´ï¿½ï¿½
+    ngx_pool_large_s* large;    //Ö¸ï¿½ï¿½ï¿½ï¿½ï¿½Ú´ï¿½ï¿½ï¿½ï¿½Úµï¿½Ö·ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
+    ngx_pool_cleanup_s * cleanup;    //Ö¸ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ô¤ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Øµï¿½ï¿½ï¿½ï¿½ï¿½
     
 };
-//°ÑÊýÖµdµ÷Õûµ½ÁÙ½üaµÄ±¶Êý
+//ï¿½ï¿½ï¿½ï¿½Öµdï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ù½ï¿½aï¿½Ä±ï¿½ï¿½ï¿½
 #define ngx_align(d,a) (((d)+(a - 1)) & ~(a - 1))
-//°ÑÖ¸Õëpµ÷Õûµ½aµÄÁÙ½ü±¶Êý
+//ï¿½ï¿½Ö¸ï¿½ï¿½pï¿½ï¿½ï¿½ï¿½ï¿½ï¿½aï¿½ï¿½ï¿½Ù½ï¿½ï¿½ï¿½ï¿½ï¿½
 #define ngx_align_ptr(p,a) \
     (u_char*)(((uintptr_t)(p)+((uintptr_t) a - 1))& ~(( uintptr_t ) a - 1))
-//buf»º³åÇøÇå0
+//bufï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½0
 #define ngx_memzero(buf,n)  (void)memset(buf,0,n)
-//Ð¡¿éÄÚ´æµÄ·ÖÅä×Ö½Ú¶ÔÆëµ¥Î»
+//Ð¡ï¿½ï¿½ï¿½Ú´ï¿½Ä·ï¿½ï¿½ï¿½ï¿½Ö½Ú¶ï¿½ï¿½ëµ¥Î»
 #define NGX_ALIGNMENT sizeof(unsigned long)
-//Ä¬ÈÏÒ»¸öÒ³Ãæ´óÐ¡4k
+//Ä¬ï¿½ï¿½Ò»ï¿½ï¿½Ò³ï¿½ï¿½ï¿½Ð¡4k
 const int ngx_pagesize = 4096; 
-//ngxÐ¡¿éÄÚ´æ³Ø·ÖÅäµÄ×î´ó¿Õ¼ä
+//ngxÐ¡ï¿½ï¿½ï¿½Ú´ï¿½Ø·ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Õ¼ï¿½
 const int NGX_MAX_ALLOC_FROM_POOL = ngx_pagesize - 1;
-//Ä¬ÈÏngxÄÚ´æ³Ø¿ª±ÙµÄ´óÐ¡
+//Ä¬ï¿½ï¿½ngxï¿½Ú´ï¿½Ø¿ï¿½ï¿½ÙµÄ´ï¿½Ð¡
 const int NGX_DEFAULT_POOL_SIZE = 16 * 1024; //16k
-//ÄÚ´æ³Ø´óÐ¡°´ÕÕ16×Ö½Ú¶ÔÆë
+//ï¿½Ú´ï¿½Ø´ï¿½Ð¡ï¿½ï¿½ï¿½ï¿½16ï¿½Ö½Ú¶ï¿½ï¿½ï¿½
 const int NGX_POOL_ALIGNMENT = 16;
-//µ÷ÕûngxÐ¡¿éÄÚ´æ³Ø×îÐ¡sizeÎªNGX_POOL_ALIGNMENTµÄÁÙ½ü±¶Êý
+//ï¿½ï¿½ï¿½ï¿½ngxÐ¡ï¿½ï¿½ï¿½Ú´ï¿½ï¿½ï¿½ï¿½Ð¡sizeÎªNGX_POOL_ALIGNMENTï¿½ï¿½ï¿½Ù½ï¿½ï¿½ï¿½ï¿½ï¿½
 const int NGX_MIN_POOL_SIZE = 
 ngx_align((sizeof(ngx_pool_s) + 2 * sizeof(ngx_pool_large_s)), 
     NGX_POOL_ALIGNMENT);
@@ -71,31 +71,31 @@ ngx_align((sizeof(ngx_pool_s) + 2 * sizeof(ngx_pool_large_s)),
 class ngx_mem_pool
 {
 public:
-    //´´½¨Ö¸¶¨size´óÐ¡
+    //ï¿½ï¿½ï¿½ï¿½Ö¸ï¿½ï¿½sizeï¿½ï¿½Ð¡
     void* ngx_create_pool(size_t size);
-    //¿¼ÂÇÄÚ´æ×Ö½Ú¶ÔÆë£¬´ÓÄÚ´æ³ØÖÐÉêÇësize´óÐ¡
+    //ï¿½ï¿½ï¿½ï¿½ï¿½Ú´ï¿½ï¿½Ö½Ú¶ï¿½ï¿½ë£¬ï¿½ï¿½ï¿½Ú´ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½sizeï¿½ï¿½Ð¡
     void* ngx_palloc(size_t size);
-    //²»¿¼ÂÇÄÚ´æ×Ö½Ú¶ÔÆë
+    //ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ú´ï¿½ï¿½Ö½Ú¶ï¿½ï¿½ï¿½
     void* ngx_pnalloc(size_t size);
-    //µ÷ÓÃµÄÊÇngx_pallocÊµÏÖÄÚ´æ·ÖÅä£¬»á³õÊ¼»¯Îª0
+    //ï¿½ï¿½ï¿½Ãµï¿½ï¿½ï¿½ngx_pallocÊµï¿½ï¿½ï¿½Ú´ï¿½ï¿½ï¿½ä£¬ï¿½ï¿½ï¿½Ê¼ï¿½ï¿½Îª0
     void* ngx_pcalloc(size_t size);
-    //ÊÍ·Å´ó¿éÄÚ´æ
+    //ï¿½Í·Å´ï¿½ï¿½ï¿½Ú´ï¿½
     void ngx_pfree(void* p);
-    //ÄÚ´æÖØÖÃº¯Êý
+    //ï¿½Ú´ï¿½ï¿½ï¿½ï¿½Ãºï¿½ï¿½ï¿½
     void ngx_reset_pool();
-    //ÄÚ´æ³ØµÄÏú»Ùº¯Êý
+    //ï¿½Ú´ï¿½Øµï¿½ï¿½ï¿½ï¿½Ùºï¿½ï¿½ï¿½
     void ngx_destory_pool();
-    //Ìí¼Ó»Øµ÷ÇåÀí²Ù×÷º¯Êý
+    //ï¿½ï¿½Ó»Øµï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
     ngx_pool_cleanup_s*  ngx_pool_cleanup_add(size_t size);
 private:
-    //Ö¸ÏòngxÄÚ´æ³ØµÄÈë¿Úº¯Êý
+    //Ö¸ï¿½ï¿½ngxï¿½Ú´ï¿½Øµï¿½ï¿½ï¿½Úºï¿½ï¿½ï¿½
     ngx_pool_s*  pool;
 
-   //Ð¡¿éÄÚ´æ·ÖÅä
+   //Ð¡ï¿½ï¿½ï¿½Ú´ï¿½ï¿½ï¿½ï¿½
     void* ngx_palloc_small(size_t size,ngx_uint_t align);
-    //´ó¿éÄÚ´æ·ÖÅä
+    //ï¿½ï¿½ï¿½ï¿½Ú´ï¿½ï¿½ï¿½ï¿½
     void* ngx_palloc_large(size_t size);
-    //·ÖÅäÐÂµÄÐ¡¿éÄÚ´æ³Ø
+    //ï¿½ï¿½ï¿½ï¿½ï¿½Âµï¿½Ð¡ï¿½ï¿½ï¿½Ú´ï¿½ï¿½
     void* ngx_palloc_block(size_t size);
 
 };
